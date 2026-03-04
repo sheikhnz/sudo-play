@@ -20,10 +20,6 @@ import { bootstrap } from '../src/core/engine.js';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Detect whether we are running from the compiled `dist/` output or directly
-// from `src/` (e.g. via ts-node / tsx during development).
-const isDist = __dirname.includes('dist');
-
 // Walk up one level from `bin/` to get the project root.
 const packageRoot = path.resolve(__dirname, '..');
 

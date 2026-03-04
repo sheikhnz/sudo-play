@@ -112,10 +112,11 @@ export class Router {
           // Await the game's own async logic. This blocks until the game
           // resolves (session ends) or rejects (crash).
           await game.start(context);
-        } catch (err: any) {
+        } catch (err) {
           // Surface game crashes gracefully so one buggy game can't kill
           // the entire app session.
-          printError(`Game crashed: ${err.message}`);
+          const message = err instanceof Error ? err.message : String(err);
+          printError(`Game crashed: ${message}`);
         }
 
         // Auto-save after every game session so progress is never lost even
