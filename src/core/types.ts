@@ -58,7 +58,7 @@ export interface GameContext {
  * and exports a default object that satisfies this interface.
  */
 export interface GameModule {
-  /** Unique machine-readable identifier (e.g. `"dummy"`, `"wordle"`). */
+  /** Unique machine-readable identifier (e.g. `"regex-arena"`, `"wordle"`). */
   id: string;
   /** Human-readable display name shown in the main menu. */
   name: string;

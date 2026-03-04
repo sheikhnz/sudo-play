@@ -26,7 +26,7 @@ const STATE_FILE_PATH = path.join(os.homedir(), '.sudo-play-state.json');
 export interface AppStateData {
   /** Total XP the player has accumulated across all games. */
   xp: number;
-  /** List of game IDs the player has unlocked (e.g. `["dummy", "wordle"]`). */
+  /** List of game IDs the player has unlocked (e.g. `["regex-arena", "wordle"]`). */
   unlockedGames: string[];
 }
 

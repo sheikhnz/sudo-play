@@ -29,12 +29,10 @@ export async function bootstrap(gamesDir: string) {
   // Load persisted XP and unlock data from `~/.sudo-play-state.json`.
   await globalState.init();
 
-  // First-run experience: unlock the built-in "dummy" game so new players
-  // always have something to try straight away.
-  if (globalState.getUnlockedGames().length === 0) {
-    globalState.unlockGame('dummy');
-    await globalState.save();
-  }
+  // Ensure built-in games are always unlocked. Using `unlockGame` here is
+  // safe — it is idempotent, so re-running on existing save files is harmless.
+  globalState.unlockGame('regex-arena');
+  await globalState.save();
 
   // Accumulates every successfully loaded GameModule.
   const loadedGames: GameModule[] = [];
