@@ -34,6 +34,6 @@ const resolvedGamesDir = path.join(packageRoot, 'src', 'games');
 // Kick off the application. Any unhandled error surfaces here so we can exit
 // cleanly with a non-zero code instead of printing an ugly stack trace.
 bootstrap(resolvedGamesDir).catch((err) => {
-  console.error("Fatal error loading sudo-play:", err);
+  console.error('Fatal error loading sudo-play:', err);
   process.exit(1);
 });

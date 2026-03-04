@@ -16,6 +16,7 @@ npm start
 ```
 
 For development without manually building every time:
+
 ```bash
 npm run dev
 ```
@@ -27,6 +28,7 @@ npm run dev
 3. Export a `GameModule` as the **default** export.
 
 Example:
+
 ```typescript
 import { GameModule, GameContext } from '../../core/types.js';
 
@@ -38,16 +40,17 @@ const myGame: GameModule = {
   start: async (context: GameContext) => {
     context.ui.printBanner('Welcome to My Fun Game!');
     context.ui.printMessage('You are playing the game...');
-    
+
     // Reward the player
     context.updateXP(50);
     context.ui.printSuccess('You earned 50 XP!');
-  }
+  },
 };
 
 export default myGame;
 ```
 
 Remember:
+
 - Do not mutate the global state directly. Use the methods provided in `GameContext`.
 - Core never imports specific games directly; it discovers them automatically.

@@ -17,15 +17,18 @@ import { GameModule } from './types.js';
  * @returns             The selected game's `id`, or `null` if the player
  *                      chose "Exit".
  */
-export async function showMainMenu(games: GameModule[], unlockedGames: string[]): Promise<string | null> {
+export async function showMainMenu(
+  games: GameModule[],
+  unlockedGames: string[],
+): Promise<string | null> {
   // Build a choice list from the available games. Locked games are still
   // listed but are rendered as disabled so players know they exist.
   const choices = games.map((g) => {
     const isUnlocked = unlockedGames.includes(g.id);
     return {
-      name: isUnlocked ? g.name : `[LOCKED] ${g.name}`,  // prefix locked games visually
+      name: isUnlocked ? g.name : `[LOCKED] ${g.name}`, // prefix locked games visually
       value: g.id,
-      disabled: !isUnlocked ? '(Requires unlock)' : false // inquirer hides disabled choices from selection
+      disabled: !isUnlocked ? '(Requires unlock)' : false, // inquirer hides disabled choices from selection
     };
   });
 
@@ -35,7 +38,7 @@ export async function showMainMenu(games: GameModule[], unlockedGames: string[])
   // `select` blocks until the user makes a choice (arrow keys + Enter).
   const answer = await select({
     message: 'Select a game to play:',
-    choices: choices
+    choices: choices,
   });
 
   // Return null to signal "the player wants to exit" rather than a game id.

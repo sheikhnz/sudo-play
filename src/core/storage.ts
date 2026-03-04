@@ -71,7 +71,11 @@ export async function loadState(): Promise<AppStateData> {
  */
 export async function saveState(state: AppStateData): Promise<void> {
   try {
-    await fs.writeFile(STATE_FILE_PATH, JSON.stringify(state, null, 2), 'utf-8');
+    await fs.writeFile(
+      STATE_FILE_PATH,
+      JSON.stringify(state, null, 2),
+      'utf-8',
+    );
   } catch (error) {
     console.error(`Error saving state to ${STATE_FILE_PATH}:`, error);
   }

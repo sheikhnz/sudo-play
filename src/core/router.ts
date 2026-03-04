@@ -14,7 +14,14 @@
 import { GameModule, GameContext } from './types.js';
 import { showMainMenu } from './menu.js';
 import { globalState } from './state.js';
-import { clearInteractive, printBanner, printMessage, printError, printSuccess, printWarning } from './ui.js';
+import {
+  clearInteractive,
+  printBanner,
+  printMessage,
+  printError,
+  printSuccess,
+  printWarning,
+} from './ui.js';
 
 /**
  * Router — coordinates the main-menu loop and game lifecycle.
@@ -48,7 +55,7 @@ export class Router {
       // Show the current XP in the header so players can see their progress
       // at a glance before picking a game.
       printBanner(`sudo-play | XP: ${globalState.getXP()}`);
-      
+
       const unlocked = globalState.getUnlockedGames();
       const availableGames = Array.from(this.games.values());
 
@@ -71,7 +78,7 @@ export class Router {
       if (game) {
         clearInteractive();
         printBanner(`Starting ${game.name}...`);
-        
+
         /**
          * Build the GameContext — the only interface a game plugin has to the
          * core engine. We pass references to UI helpers and state accessors, and
@@ -85,20 +92,20 @@ export class Router {
             printWarning,
             printError,
             printSuccess,
-            clearInteractive
+            clearInteractive,
           },
           state: {
             // Games read state through these getters; they cannot mutate it directly.
             getXP: () => globalState.getXP(),
-            getUnlockedGames: () => globalState.getUnlockedGames()
+            getUnlockedGames: () => globalState.getUnlockedGames(),
           },
           updateXP: (points) => {
             // Games call this to earn (or lose) XP. Returns immediately;
             // the change is persisted by saveProgress / the auto-save below.
-             globalState.updateXP(points);
+            globalState.updateXP(points);
           },
           unlockGame: (id) => globalState.unlockGame(id),
-          saveProgress: async () => await globalState.save()
+          saveProgress: async () => await globalState.save(),
         };
 
         try {
@@ -110,7 +117,7 @@ export class Router {
           // the entire app session.
           printError(`Game crashed: ${err.message}`);
         }
-        
+
         // Auto-save after every game session so progress is never lost even
         // if the player didn't explicitly call saveProgress() inside the game.
         printMessage('Saving progress...');

@@ -50,7 +50,7 @@ export async function bootstrap(gamesDir: string) {
         // Fall back to the compiled JavaScript file (production / after `tsc`).
         let gameIndexPath = path.join(gamesDir, entry.name, 'index.ts');
         let exists = false;
-        
+
         try {
           await fs.access(gameIndexPath); // throws if the file doesn't exist
           exists = true;
@@ -72,13 +72,15 @@ export async function bootstrap(gamesDir: string) {
             // are not valid in ESM specifiers) and is good practice everywhere.
             const moduleUrl = pathToFileURL(gameIndexPath).href;
             const gameModule = await import(moduleUrl);
-            
+
             // A valid game plugin must export a default object with an `id`
             // field. Anything else is likely not a game plugin and is skipped.
             if (gameModule.default && gameModule.default.id) {
               loadedGames.push(gameModule.default as GameModule);
             } else {
-              console.warn(`Game in ${entry.name} does not export a valid GameModule as default.`);
+              console.warn(
+                `Game in ${entry.name} does not export a valid GameModule as default.`,
+              );
             }
           } catch (err) {
             // A broken game should not crash the entire app — warn and move on.

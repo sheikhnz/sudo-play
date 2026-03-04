@@ -30,7 +30,7 @@ import { confirm } from '@inquirer/prompts';
  * the player selects "Dummy Game" from the main menu.
  */
 const dummyGame: GameModule = {
-  id: 'dummy',          // Must be unique across all games; used for unlock tracking
+  id: 'dummy', // Must be unique across all games; used for unlock tracking
   name: 'Dummy Game',
   description: 'A simple example game to demonstrate the plugin system.',
   version: '1.0.0',
@@ -45,30 +45,36 @@ const dummyGame: GameModule = {
   start: async (context: GameContext) => {
     // Show a banner to signal the game has started.
     context.ui.printBanner('Welcome to the Dummy Game!');
-    context.ui.printMessage('This is a test to show how games interact with the core engine.');
-    
+    context.ui.printMessage(
+      'This is a test to show how games interact with the core engine.',
+    );
+
     // Read current XP from state (read-only — mutations go through updateXP).
     context.ui.printMessage(`Your current XP is: ${context.state.getXP()}`);
-    
+
     // Ask the player whether they want to play a round.
-    const play = await confirm({ message: 'Do you want to play a round and earn 25 XP?' });
-    
+    const play = await confirm({
+      message: 'Do you want to play a round and earn 25 XP?',
+    });
+
     if (play) {
       context.ui.clearInteractive();
       context.ui.printSuccess('You played the dummy game amazingly well!');
 
       // Award XP — this is in-memory; the Router auto-saves after start() resolves.
       context.updateXP(25);
-      context.ui.printMessage(`You earned 25 XP! New total: ${context.state.getXP()}`);
+      context.ui.printMessage(
+        `You earned 25 XP! New total: ${context.state.getXP()}`,
+      );
     } else {
       context.ui.clearInteractive();
       context.ui.printMessage('Maybe next time!');
     }
-    
+
     // Pause before returning to the menu so the player can read the result.
     await confirm({ message: 'Press enter to return to the main menu' });
     // Returning here signals to the Router that the session is over.
-  }
+  },
 };
 
 export default dummyGame;
