@@ -9,18 +9,18 @@ Stale agent context is worse than no context — treat this as a living system.
 
 Trigger an update to `.agents/context.md` or the relevant workflow whenever any of the below happens:
 
-| Event | What to update |
-|-------|---------------|
-| New core file added to `src/core/` | Add it to the directory structure table and describe its role |
-| `GameContext` interface gains/loses a member | Update the `GameContext` API table in `context.md` |
-| `GameModule` interface changes | Update the interface block in `context.md` |
-| A new npm script is added | Add it to the **Available npm Scripts** table |
-| A new dependency is added (`chalk`, `inquirer`, etc.) | Note it in the **Project Overview** section |
+| Event                                                       | What to update                                                   |
+| ----------------------------------------------------------- | ---------------------------------------------------------------- |
+| New core file added to `src/core/`                          | Add it to the directory structure table and describe its role    |
+| `GameContext` interface gains/loses a member                | Update the `GameContext` API table in `context.md`               |
+| `GameModule` interface changes                              | Update the interface block in `context.md`                       |
+| A new npm script is added                                   | Add it to the **Available npm Scripts** table                    |
+| A new dependency is added (`chalk`, `inquirer`, etc.)       | Note it in the **Project Overview** section                      |
 | A new game file convention is introduced (e.g. `config.ts`) | Add the file to the **File Structure Reference** in the workflow |
-| A code-style rule is established (Prettier, ESLint, naming) | Add it to the **Code Style & Conventions** table |
-| A "DO NOT do" pattern is discovered (e.g. a footgun) | Add it to the **Architecture Principles — DO NOT** list |
-| A workflow step changes (e.g. preflight script renamed) | Update `.agents/workflows/add-new-game.md` |
-| The build/publish process changes | Update the scripts table and any workflow that runs them |
+| A code-style rule is established (Prettier, ESLint, naming) | Add it to the **Code Style & Conventions** table                 |
+| A "DO NOT do" pattern is discovered (e.g. a footgun)        | Add it to the **Architecture Principles — DO NOT** list          |
+| A workflow step changes (e.g. preflight script renamed)     | Update `.agents/workflows/add-new-game.md`                       |
+| The build/publish process changes                           | Update the scripts table and any workflow that runs them         |
 
 ---
 

@@ -11,6 +11,7 @@ description: how to add a new game plugin to sudo-play
 1. **Confirm the game ID** with the user — must be kebab-case, unique across `src/games/`.
 
 2. **Create the game directory**:
+
    ```
    src/games/<game-id>/
    ```
@@ -42,14 +43,16 @@ description: how to add a new game plugin to sudo-play
    - No side effects, no UI calls
 
 8. **Verify auto-discovery works**:
-// turbo
+   // turbo
+
    ```bash
    npm run dev
    ```
+
    The new game should appear in the main menu without any core changes.
 
 9. **Run preflight checks**:
-// turbo
+   // turbo
    ```bash
    npm run pr-preflight
    ```

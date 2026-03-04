@@ -48,35 +48,37 @@ sudo-play/
 Every game plugin is governed by two interfaces:
 
 ### `GameModule`
+
 The plugin manifest. Every game exports a default object of this type:
 
 ```ts
 export interface GameModule {
-  id: string;          // kebab-case, unique (e.g. "word-blitz")
-  name: string;        // Human-readable title for the menu
+  id: string; // kebab-case, unique (e.g. "word-blitz")
+  name: string; // Human-readable title for the menu
   description: string; // One-line flavour text
-  version: string;     // Semver (e.g. "1.0.0")
+  version: string; // Semver (e.g. "1.0.0")
   start: (context: GameContext) => Promise<void>; // Entry point
 }
 ```
 
 ### `GameContext`
+
 The engine API handed to every game on `start()`. Games **must not** import
 from core directly — they only use what `context` exposes:
 
-| Member | Purpose |
-|--------|---------|
-| `context.ui.printBanner(text)` | Full-width bordered header |
-| `context.ui.printMessage(msg)` | Plain white text |
-| `context.ui.printWarning(msg)` | Yellow ⚠ prefix |
-| `context.ui.printError(msg)` | Red ✖ prefix |
-| `context.ui.printSuccess(msg)` | Green ✔ prefix |
-| `context.ui.clearInteractive()` | Clear terminal (new screen) |
-| `context.state.getXP()` | Returns current player XP (number) |
-| `context.state.getUnlockedGames()` | Returns string[] of unlocked game IDs |
-| `context.updateXP(points)` | Add/subtract XP in-memory |
-| `context.unlockGame(gameId)` | Mark a game as unlocked |
-| `context.saveProgress()` | Flush state to `~/.sudo-play-state.json` |
+| Member                             | Purpose                                  |
+| ---------------------------------- | ---------------------------------------- |
+| `context.ui.printBanner(text)`     | Full-width bordered header               |
+| `context.ui.printMessage(msg)`     | Plain white text                         |
+| `context.ui.printWarning(msg)`     | Yellow ⚠ prefix                          |
+| `context.ui.printError(msg)`       | Red ✖ prefix                             |
+| `context.ui.printSuccess(msg)`     | Green ✔ prefix                           |
+| `context.ui.clearInteractive()`    | Clear terminal (new screen)              |
+| `context.state.getXP()`            | Returns current player XP (number)       |
+| `context.state.getUnlockedGames()` | Returns string[] of unlocked game IDs    |
+| `context.updateXP(points)`         | Add/subtract XP in-memory                |
+| `context.unlockGame(gameId)`       | Mark a game as unlocked                  |
+| `context.saveProgress()`           | Flush state to `~/.sudo-play-state.json` |
 
 ---
 
@@ -87,13 +89,13 @@ from core directly — they only use what `context` exposes:
 1. Create `src/games/<your-game-id>/` (use kebab-case)
 2. Create these files inside:
 
-   | File | Purpose |
-   |------|---------|
-   | `index.ts` | Exports default `GameModule` (the engine discovers this) |
-   | `engine.ts` | Core game loop / session logic |
-   | `ui.ts` | All terminal rendering for the game |
-   | `challenges.ts` | Static challenge/level data |
-   | `validator.ts` | Answer validation logic (optional) |
+   | File            | Purpose                                                  |
+   | --------------- | -------------------------------------------------------- |
+   | `index.ts`      | Exports default `GameModule` (the engine discovers this) |
+   | `engine.ts`     | Core game loop / session logic                           |
+   | `ui.ts`         | All terminal rendering for the game                      |
+   | `challenges.ts` | Static challenge/level data                              |
+   | `validator.ts`  | Answer validation logic (optional)                       |
 
 3. In `index.ts`, import `GameModule` and `GameContext` from `../../core/types.js` (**note `.js` extension** — required by ESM)
 4. The engine auto-discovers your game — no registration step needed.
@@ -105,7 +107,7 @@ import { GameModule, GameContext } from '../../core/types.js';
 import { runMyGame } from './engine.js';
 
 const myGame: GameModule = {
-  id: 'my-game',          // must be unique
+  id: 'my-game', // must be unique
   name: 'My Game',
   description: 'One line about what the player does.',
   version: '1.0.0',
@@ -119,30 +121,30 @@ export default myGame;
 
 ## Code Style & Conventions
 
-| Rule | Detail |
-|------|--------|
-| **ESM imports** | Always use `.js` file extensions in imports (even for `.ts` source files) |
-| **No default exports from core** | Core files use named exports only |
-| **Game isolation** | Games must never import from core directly except `types.ts` |
-| **Async throughout** | All game sessions are `async/await`; never block the event loop |
-| **Error resilience** | Wrap game logic in try/catch; a crash must not kill the main menu |
-| **Chalk** | Only use chalk inside `ui.ts` files — never in challenge data |
-| **Prettier** | Run `npm run format` before committing |
-| **Linting** | Run `npm run lint` — fix all warnings before PR |
-| **JSDoc** | Every exported function and interface needs a JSDoc comment |
+| Rule                             | Detail                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------- |
+| **ESM imports**                  | Always use `.js` file extensions in imports (even for `.ts` source files) |
+| **No default exports from core** | Core files use named exports only                                         |
+| **Game isolation**               | Games must never import from core directly except `types.ts`              |
+| **Async throughout**             | All game sessions are `async/await`; never block the event loop           |
+| **Error resilience**             | Wrap game logic in try/catch; a crash must not kill the main menu         |
+| **Chalk**                        | Only use chalk inside `ui.ts` files — never in challenge data             |
+| **Prettier**                     | Run `npm run format` before committing                                    |
+| **Linting**                      | Run `npm run lint` — fix all warnings before PR                           |
+| **JSDoc**                        | Every exported function and interface needs a JSDoc comment               |
 
 ---
 
 ## Available npm Scripts
 
-| Script | What it does |
-|--------|-------------|
-| `npm run dev` | Run with `tsx` (no compile step) |
-| `npm run build` | Compile TypeScript → `dist/` |
-| `npm start` | Run compiled output |
-| `npm run format` | Prettier format all files |
-| `npm run lint` | ESLint check |
-| `npm run lint:fix` | ESLint auto-fix |
+| Script                 | What it does                            |
+| ---------------------- | --------------------------------------- |
+| `npm run dev`          | Run with `tsx` (no compile step)        |
+| `npm run build`        | Compile TypeScript → `dist/`            |
+| `npm start`            | Run compiled output                     |
+| `npm run format`       | Prettier format all files               |
+| `npm run lint`         | ESLint check                            |
+| `npm run lint:fix`     | ESLint auto-fix                         |
 | `npm run pr-preflight` | Format + lint fix (run before every PR) |
 
 ---
