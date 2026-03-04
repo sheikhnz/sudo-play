@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Terminal powered mini games for developers. Zero graphics. Maximum pain.",
   "main": "index.js",
+  "files": ["dist"],
+  "keywords": ["cli", "game", "terminal", "developer", "arcade", "npx", "typescript"],
+  "author": "sheikhnz",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build",
     "build": "tsc",
     "start": "node ./dist/bin/sudo-play.js",
     "dev": "tsx ./bin/sudo-play.ts",
@@ -18,8 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/sheikhnz/sudo-play.git"
   },
-  "keywords": [],
-  "author": "",
+
   "license": "ISC",
   "type": "module",
   "bugs": {

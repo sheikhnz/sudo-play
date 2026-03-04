@@ -20,12 +20,10 @@ import { bootstrap } from '../src/core/engine.js';
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Walk up one level from `bin/` to get the project root.
-const packageRoot = path.resolve(__dirname, '..');
-
-// Games live under `src/games/` as individual sub-directories.
-// Each sub-directory must export a default GameModule from its `index.ts`.
-const resolvedGamesDir = path.join(packageRoot, 'src', 'games');
+// Resolve the games directory relative to __dirname so this works in both contexts:
+//   Dev  (tsx ./bin/sudo-play.ts): __dirname = bin/  → resolves to src/games ✓
+//   Prod (node ./dist/bin/...):    __dirname = dist/bin/ → resolves to dist/src/games ✓
+const resolvedGamesDir = path.resolve(__dirname, '..', 'src', 'games');
 
 // Kick off the application. Any unhandled error surfaces here so we can exit
 // cleanly with a non-zero code instead of printing an ugly stack trace.
