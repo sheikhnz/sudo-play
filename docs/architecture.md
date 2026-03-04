@@ -70,14 +70,14 @@ Reads and writes a JSON save file at `~/.sudo-play/save.json`. The file is creat
 
 A thin wrapper over `chalk` that exposes typed helper functions:
 
-| Method | Output |
-|--------|--------|
-| `printBanner(text)` | Decorative bordered banner |
-| `printMessage(msg)` | Plain white message |
-| `printWarning(msg)` | Yellow `⚠ msg` |
-| `printError(msg)` | Red `✖ msg` |
-| `printSuccess(msg)` | Green `✔ msg` |
-| `clearInteractive()` | Clears the terminal |
+| Method               | Output                     |
+| -------------------- | -------------------------- |
+| `printBanner(text)`  | Decorative bordered banner |
+| `printMessage(msg)`  | Plain white message        |
+| `printWarning(msg)`  | Yellow `⚠ msg`             |
+| `printError(msg)`    | Red `✖ msg`                |
+| `printSuccess(msg)`  | Green `✔ msg`              |
+| `clearInteractive()` | Clears the terminal        |
 
 ### `types.ts` — Interfaces
 
@@ -113,6 +113,7 @@ See the [API Reference](./api-reference.md) for full details.
 ```
 
 Games receive a `GameContext` that gives them access to:
+
 - **UI helpers** — print messages, banners, errors without touching chalk directly
 - **Read-only state** — current XP and unlocked games
 - **Actions** — `updateXP()`, `unlockGame()`, `saveProgress()`

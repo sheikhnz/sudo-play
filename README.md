@@ -40,10 +40,10 @@ The architecture is intentionally minimal. The core engine knows nothing about i
 
 ## Games
 
-| Game | Description |
-|------|-------------|
-| 🐛 **Bug Hunter** | Spot the bug in a code snippet and pick the right fix. 30s per challenge. |
-| 🔍 **Regex Arena** | Write regular expressions to match patterns across 5 progressive levels. |
+| Game               | Description                                                               |
+| ------------------ | ------------------------------------------------------------------------- |
+| 🐛 **Bug Hunter**  | Spot the bug in a code snippet and pick the right fix. 30s per challenge. |
+| 🔍 **Regex Arena** | Write regular expressions to match patterns across 5 progressive levels.  |
 
 More games coming — [contributions welcome](./docs/contributing.md).
 
@@ -61,11 +61,11 @@ More games coming — [contributions welcome](./docs/contributing.md).
 
 ## Documentation
 
-| Doc | Description |
-|-----|-------------|
-| [Architecture](./docs/architecture.md) | How the engine, router, state, and plugin system work |
-| [Adding a Game](./docs/adding-a-game.md) | Step-by-step guide to building your own game plugin |
-| [Contributing](./docs/contributing.md) | How to contribute code, games, or bug reports |
+| Doc                                      | Description                                             |
+| ---------------------------------------- | ------------------------------------------------------- |
+| [Architecture](./docs/architecture.md)   | How the engine, router, state, and plugin system work   |
+| [Adding a Game](./docs/adding-a-game.md) | Step-by-step guide to building your own game plugin     |
+| [Contributing](./docs/contributing.md)   | How to contribute code, games, or bug reports           |
 | [API Reference](./docs/api-reference.md) | Full `GameModule` and `GameContext` interface reference |
 
 ---

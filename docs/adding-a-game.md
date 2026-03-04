@@ -22,15 +22,15 @@ This is the only file the engine imports. It exports your `GameModule` as the de
 import { GameModule, GameContext } from '../../core/types.js';
 
 const myGame: GameModule = {
-  id: 'my-game',              // unique, kebab-case identifier
-  name: 'My Game',            // shown in the main menu
+  id: 'my-game', // unique, kebab-case identifier
+  name: 'My Game', // shown in the main menu
   description: 'A short description of what this game is.', // shown in menu
   version: '1.0.0',
 
   start: async (context: GameContext): Promise<void> => {
     context.ui.clearInteractive();
     context.ui.printBanner('My Game');
-    context.ui.printMessage('Welcome! Let\'s play.');
+    context.ui.printMessage("Welcome! Let's play.");
 
     // your game logic here
 
@@ -91,12 +91,12 @@ The `context` argument is your only interface to the engine. Use it for everythi
 ### UI Helpers
 
 ```typescript
-context.ui.clearInteractive();         // clear the terminal
-context.ui.printBanner('Round 1');     // big bordered title
-context.ui.printMessage('Pick one:');  // plain message
-context.ui.printSuccess('Correct!');   // green ✔
+context.ui.clearInteractive(); // clear the terminal
+context.ui.printBanner('Round 1'); // big bordered title
+context.ui.printMessage('Pick one:'); // plain message
+context.ui.printSuccess('Correct!'); // green ✔
 context.ui.printWarning('Slow down!'); // yellow ⚠
-context.ui.printError('Wrong.');       // red ✖
+context.ui.printError('Wrong.'); // red ✖
 ```
 
 ### Reading Player State
@@ -109,14 +109,14 @@ const unlocked = context.state.getUnlockedGames();
 ### Awarding XP
 
 ```typescript
-context.updateXP(100);   // add XP
-context.updateXP(-20);   // deduct XP (floor is 0)
+context.updateXP(100); // add XP
+context.updateXP(-20); // deduct XP (floor is 0)
 ```
 
 ### Unlocking Games
 
 ```typescript
-context.unlockGame('my-other-game');  // idempotent, safe to call multiple times
+context.unlockGame('my-other-game'); // idempotent, safe to call multiple times
 ```
 
 ### Saving Progress
@@ -156,12 +156,12 @@ const again = await confirm({ message: 'Play again?' });
 
 ## Naming Conventions
 
-| Thing | Convention | Example |
-|-------|-----------|---------|
-| Directory name | `kebab-case` | `src/games/word-bomb` |
-| `id` field | Same as directory | `'word-bomb'` |
-| `name` field | Title Case | `'Word Bomb'` |
-| File names | `kebab-case.ts` | `engine.ts`, `levels.ts` |
+| Thing          | Convention        | Example                  |
+| -------------- | ----------------- | ------------------------ |
+| Directory name | `kebab-case`      | `src/games/word-bomb`    |
+| `id` field     | Same as directory | `'word-bomb'`            |
+| `name` field   | Title Case        | `'Word Bomb'`            |
+| File names     | `kebab-case.ts`   | `engine.ts`, `levels.ts` |
 
 ---
 
@@ -178,7 +178,7 @@ const again = await confirm({ message: 'Play again?' });
 
 Study the existing games as reference implementations:
 
-| Game | Highlights |
-|------|-----------|
-| [`bug-hunter`](../src/games/bug-hunter/) | Timer-based, multiple choice, difficulty scaling |
+| Game                                       | Highlights                                            |
+| ------------------------------------------ | ----------------------------------------------------- |
+| [`bug-hunter`](../src/games/bug-hunter/)   | Timer-based, multiple choice, difficulty scaling      |
 | [`regex-arena`](../src/games/regex-arena/) | Free-text input, regex validation, progressive levels |
