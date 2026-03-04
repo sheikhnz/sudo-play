@@ -146,4 +146,151 @@ export const levels: RegexLevel[] = [
       { input: 'abc.def.ghi.jkl', shouldMatch: false },
     ],
   },
+
+  // ── Level 6: HTML Hex Colour ───────────────────────────────────────────────
+  {
+    id: 6,
+    title: 'HTML Hex Colour',
+    description:
+      'Match an HTML hex colour code. Must start with #, followed by exactly ' +
+      '3 or 6 hexadecimal characters (0-9, a-f, A-F). Nothing else allowed.',
+    difficulty: 'easy',
+    hint: 'Use # then {3} or {6} hex digits. Use alternation | to handle both lengths.',
+    testCases: [
+      { input: '#fff', shouldMatch: true },
+      { input: '#000', shouldMatch: true },
+      { input: '#FF0000', shouldMatch: true },
+      { input: '#a3c2f0', shouldMatch: true },
+      { input: '#1A2B3C', shouldMatch: true },
+      { input: '#FFFFFF', shouldMatch: true },
+      { input: 'FFF', shouldMatch: false },
+      { input: '#gg0000', shouldMatch: false },
+      { input: '#1234', shouldMatch: false },
+      { input: '#GGGGGG', shouldMatch: false },
+      { input: '#12345', shouldMatch: false },
+    ],
+  },
+
+  // ── Level 7: ISO 8601 Date ─────────────────────────────────────────────────
+  {
+    id: 7,
+    title: 'ISO 8601 Date',
+    description:
+      'Match a calendar date in ISO 8601 format: YYYY-MM-DD. The year must be ' +
+      '4 digits, month 01–12, and day 01–31. Validate ranges with your pattern.',
+    difficulty: 'medium',
+    hint: 'Month: 0[1-9]|1[0-2]. Day: 0[1-9]|[12]\\d|3[01]. Year: any 4 digits.',
+    testCases: [
+      { input: '2024-01-01', shouldMatch: true },
+      { input: '1999-12-31', shouldMatch: true },
+      { input: '2000-06-15', shouldMatch: true },
+      { input: '2024-02-29', shouldMatch: true },
+      { input: '1900-01-01', shouldMatch: true },
+      { input: '2024-13-01', shouldMatch: false },
+      { input: '2024-00-01', shouldMatch: false },
+      { input: '2024-01-32', shouldMatch: false },
+      { input: '24-01-01', shouldMatch: false },
+      { input: '2024/01/01', shouldMatch: false },
+      { input: '2024-1-1', shouldMatch: false },
+    ],
+  },
+
+  // ── Level 8: Credit Card Number ────────────────────────────────────────────
+  {
+    id: 8,
+    title: 'Credit Card Number',
+    description:
+      'Match a Visa or Mastercard number. Visa starts with 4; Mastercard ' +
+      'starts with 51–55 or 2221–2720. Both are 16 digits, optionally grouped ' +
+      'in fours separated by spaces or hyphens.',
+    difficulty: 'medium',
+    hint: 'Match the leading digits for Visa (4) and Mastercard (5[1-5]|2[2-7]\\d\\d), then 12–15 more.',
+    testCases: [
+      { input: '4111111111111111', shouldMatch: true },
+      { input: '4111 1111 1111 1111', shouldMatch: true },
+      { input: '4111-1111-1111-1111', shouldMatch: true },
+      { input: '5500005555555559', shouldMatch: true },
+      { input: '5500 0055 5555 5559', shouldMatch: true },
+      { input: '2221000000000009', shouldMatch: true },
+      { input: '1234567890123456', shouldMatch: false },
+      { input: '6011111111111117', shouldMatch: false },
+      { input: '411111111111', shouldMatch: false },
+      { input: '4111 1111 1111', shouldMatch: false },
+    ],
+  },
+
+  // ── Level 9: Semantic Version ──────────────────────────────────────────────
+  {
+    id: 9,
+    title: 'Semantic Version (semver)',
+    description:
+      'Match a semantic version string: MAJOR.MINOR.PATCH, optionally followed ' +
+      'by a pre-release tag (-alpha.1, -beta.2, -rc.3) and/or a build metadata ' +
+      'suffix (+build.123). No leading zeros in numeric parts.',
+    difficulty: 'hard',
+    hint: 'Core: \\d+\\.\\d+\\.\\d+. Pre-release: -[a-zA-Z0-9.]+. Build: \\+[a-zA-Z0-9.]+.',
+    testCases: [
+      { input: '1.0.0', shouldMatch: true },
+      { input: '0.1.0', shouldMatch: true },
+      { input: '10.20.30', shouldMatch: true },
+      { input: '1.0.0-alpha', shouldMatch: true },
+      { input: '1.0.0-alpha.1', shouldMatch: true },
+      { input: '1.0.0-beta.2+build.123', shouldMatch: true },
+      { input: '1.0.0+build.999', shouldMatch: true },
+      { input: '1.0', shouldMatch: false },
+      { input: '1', shouldMatch: false },
+      { input: '01.0.0', shouldMatch: false },
+      { input: 'v1.0.0', shouldMatch: false },
+      { input: '1.0.0.0', shouldMatch: false },
+    ],
+  },
+
+  // ── Level 10: JWT Token ────────────────────────────────────────────────────
+  {
+    id: 10,
+    title: 'JWT Token',
+    description:
+      'Match a JSON Web Token (JWT). A JWT consists of exactly three Base64URL- ' +
+      'encoded segments separated by dots: header.payload.signature. Each ' +
+      'segment uses A-Z, a-z, 0-9, hyphen, and underscore — no padding (=).',
+    difficulty: 'hard',
+    hint: 'Base64URL chars are [A-Za-z0-9_-]+. Three segments joined by literal dots.',
+    testCases: [
+      {
+        input:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+        shouldMatch: true,
+      },
+      {
+        input: 'aGVhZGVy.cGF5bG9hZA.c2lnbmF0dXJl',
+        shouldMatch: true,
+      },
+      {
+        input: 'abc123_-ABC.def456_-DEF.ghi789_-GHI',
+        shouldMatch: true,
+      },
+      {
+        input: 'header.payload',
+        shouldMatch: false,
+      },
+      {
+        input: 'header.payload.signature.extra',
+        shouldMatch: false,
+      },
+      {
+        input: 'he@der.payload.signature',
+        shouldMatch: false,
+      },
+      {
+        input: 'header.pay load.signature',
+        shouldMatch: false,
+      },
+      {
+        input: '',
+        shouldMatch: false,
+      },
+    ],
+  },
+
+
 ];
