@@ -291,6 +291,4 @@ export const levels: RegexLevel[] = [
       },
     ],
   },
-
-
 ];

@@ -27,7 +27,8 @@ import { runRegexArena } from './engine.js';
 const regexArena: GameModule = {
   id: 'regex-arena',
   name: 'Regex Arena',
-  description: 'Write regex patterns to match challenge test cases. 5 levels of increasing difficulty.',
+  description:
+    'Write regex patterns to match challenge test cases. 5 levels of increasing difficulty.',
   version: '1.0.0',
 
   start: (context: GameContext): Promise<void> => runRegexArena(context),

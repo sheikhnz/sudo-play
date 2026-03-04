@@ -53,7 +53,10 @@ export async function loadState(): Promise<AppStateData> {
     // populated with sensible defaults (forward-compatibility).
     return { ...DEFAULT_STATE, ...JSON.parse(data) };
   } catch (error) {
-    if (error instanceof Error && (error as NodeJS.ErrnoException).code === 'ENOENT') {
+    if (
+      error instanceof Error &&
+      (error as NodeJS.ErrnoException).code === 'ENOENT'
+    ) {
       // File doesn't exist yet — this is expected on first run.
       return { ...DEFAULT_STATE };
     }

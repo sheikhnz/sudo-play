@@ -29,10 +29,10 @@ export async function bootstrap(gamesDir: string) {
   // Load persisted XP and unlock data from `~/.sudo-play-state.json`.
   await globalState.init();
 
-  // Ensure built-in games are always unlocked. Using `unlockGame` here is
-  // safe — it is idempotent, so re-running on existing save files is harmless.
-  globalState.unlockGame('regex-arena');
-  await globalState.save();
+  // All games in this arcade are immediately playable — no XP gate needed.
+  // We unlock them after discovery so this loop never needs updating when a
+  // new game is added to the games/ directory.
+  // (The unlock list is persisted to disk so the menu stays consistent across sessions.)
 
   // Accumulates every successfully loaded GameModule.
   const loadedGames: GameModule[] = [];
@@ -92,6 +92,15 @@ export async function bootstrap(gamesDir: string) {
     // (the menu will show no games), but worth logging as an error.
     console.error(`Failed to read games directory at ${gamesDir}`, err);
   }
+
+  // Auto-unlock every game that was successfully loaded. This means every
+  // game in the games/ directory is immediately playable — no manual ID list
+  // to maintain. unlockGame() is idempotent, so this is safe to run on every
+  // startup without duplicating entries in the save file.
+  for (const game of loadedGames) {
+    globalState.unlockGame(game.id);
+  }
+  await globalState.save();
 
   // Hand all successfully loaded games to the Router and enter the menu loop.
   const router = new Router(loadedGames);

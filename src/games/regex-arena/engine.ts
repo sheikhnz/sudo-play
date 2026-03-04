@@ -13,7 +13,12 @@ import { input, confirm, select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { GameContext } from '../../core/types.js';
 import { levels, RegexLevel, Difficulty } from './levels.js';
-import { safeCompileRegex, runTestCases, computeScore, CaseResult } from './validator.js';
+import {
+  safeCompileRegex,
+  runTestCases,
+  computeScore,
+  CaseResult,
+} from './validator.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Display helpers (local to this file — not exported)
@@ -57,7 +62,9 @@ function printCaseResults(results: CaseResult[]): void {
     const label = r.shouldMatch
       ? chalk.dim('should match   ')
       : chalk.dim('should NOT match');
-    const matchedLabel = r.didMatch ? chalk.green('matched') : chalk.red('no match');
+    const matchedLabel = r.didMatch
+      ? chalk.green('matched')
+      : chalk.red('no match');
     const inputStr = chalk.cyan(`"${r.input}"`);
     console.log(`${icon}  ${label}  ${inputStr.padEnd(32)}  → ${matchedLabel}`);
   }
@@ -101,7 +108,12 @@ function printScoreBreakdown(
   }
   console.log(chalk.dim('  ' + '─'.repeat(36)));
 
-  const scoreColour = finalScore >= 80 ? chalk.green : finalScore >= 40 ? chalk.yellow : chalk.red;
+  const scoreColour =
+    finalScore >= 80
+      ? chalk.green
+      : finalScore >= 40
+        ? chalk.yellow
+        : chalk.red;
   console.log(
     `  ${chalk.bold('Final score')}      ${scoreColour.bold(`${finalScore} pts`)}`,
   );
@@ -118,7 +130,10 @@ function printScoreBreakdown(
  * Handles the prompt/validate/score loop for a single level, supporting
  * multiple attempts. Returns the best score achieved across all attempts.
  */
-async function runLevel(level: RegexLevel, context: GameContext): Promise<number> {
+async function runLevel(
+  level: RegexLevel,
+  context: GameContext,
+): Promise<number> {
   let attempts = 0;
   let bestScore = 0;
   const levelStartTime = Date.now();
@@ -174,7 +189,10 @@ async function runLevel(level: RegexLevel, context: GameContext): Promise<number
     const choice = await select({
       message: 'What would you like to do?',
       choices: [
-        { name: '🔁  Retry this level (−10 pts per extra attempt)', value: 'retry' },
+        {
+          name: '🔁  Retry this level (−10 pts per extra attempt)',
+          value: 'retry',
+        },
         { name: '➡️   Move to the next level with this score', value: 'next' },
         { name: '🚪  Exit to main menu', value: 'exit' },
       ],
@@ -212,10 +230,16 @@ export async function runRegexArena(context: GameContext): Promise<void> {
   context.ui.clearInteractive();
   context.ui.printBanner('Welcome to Regex Arena!');
 
-  console.log(chalk.white('  Craft regex patterns to match the challenge test cases.'));
+  console.log(
+    chalk.white('  Craft regex patterns to match the challenge test cases.'),
+  );
   console.log(chalk.white('  Earn XP from accuracy, speed, and efficiency.'));
   console.log();
-  console.log(chalk.dim('  Scoring:  accuracy (0–100) + time bonus (0–30) − attempt penalty (10×)'));
+  console.log(
+    chalk.dim(
+      '  Scoring:  accuracy (0–100) + time bonus (0–30) − attempt penalty (10×)',
+    ),
+  );
   console.log(chalk.dim('  XP awarded = final score per level (minimum 0).'));
   console.log();
 
@@ -248,7 +272,9 @@ export async function runRegexArena(context: GameContext): Promise<void> {
 
     // If not the last level, pause before moving on
     if (level.id < levels.length) {
-      await confirm({ message: `Press enter to continue to Level ${level.id + 1}` });
+      await confirm({
+        message: `Press enter to continue to Level ${level.id + 1}`,
+      });
     }
   }
 
@@ -259,7 +285,9 @@ export async function runRegexArena(context: GameContext): Promise<void> {
   const xpAfter = context.state.getXP();
   console.log(chalk.bold.white('  Session Summary'));
   console.log(chalk.dim('  ' + '─'.repeat(32)));
-  console.log(`  XP earned this session:  ${chalk.green.bold(`+${sessionXP}`)}`);
+  console.log(
+    `  XP earned this session:  ${chalk.green.bold(`+${sessionXP}`)}`,
+  );
   console.log(`  XP before session:       ${chalk.dim(String(xpBefore))}`);
   console.log(`  Total XP now:            ${chalk.cyan.bold(String(xpAfter))}`);
   console.log();
